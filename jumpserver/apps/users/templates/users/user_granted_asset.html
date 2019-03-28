@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% load static %}
+{% load i18n %}
+
+{% block custom_head_css_js %}
+    <link href="{% static 'css/plugins/select2/select2.min.css' %}" rel="stylesheet">
+    <script src="{% static 'js/plugins/select2/select2.full.min.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="panel-options">
+                        <ul class="nav nav-tabs">
+                            <li>
+                                <a href="{% url 'users:user-detail' pk=user.id %}" class="text-center"><i class="fa fa-laptop"></i> {% trans 'User detail' %} </a>
+                            </li>
+                            <li class="active">
+                                <a href="{% url 'users:user-granted-asset' pk=user.id %}" class="text-center"><i class="fa fa-cubes"></i> {% trans 'Asset granted' %}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="col-sm-6" style="padding-left: 0;">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <span style="float: left">{% trans 'Assets granted of ' %} <b>{{ user.name }}</b></span>
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                            <i class="fa fa-wrench"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-user">
+                                        </ul>
+                                        <a class="close-link">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+                                    <table class="table table-hover " id="user_assets_table" >
+                                        <thead>
+                                            <tr>
+                                                <th>{% trans 'Hostname' %}</th>
+                                                <th>{% trans 'IP' %}</th>
+                                                <th>{% trans 'System user' %}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" style="padding-left: 0;padding-right: 0">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <span style="float: left">{% trans 'Asset groups granted of ' %} <b>{{ user.name }}</b></span>
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                            <i class="fa fa-wrench"></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-user">
+                                        </ul>
+                                        <a class="close-link">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+                                    <table class="table table-hover" id="user_asset_groups_table" >
+                                        <thead>
+                                            <tr>
+                                                <th>{% trans 'Name' %}</th>
+                                                <th>{% trans 'Asset' %}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block custom_foot_js %}
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+            var options = {
+                ele: $('#user_assets_table'),
+                buttons: [],
+                order: [],
+                select: [],
+                columnDefs: [
+                    {targets: 0, createdCell: function (td, cellData, rowData) {
+                        var detail_btn = '<a href="{% url "assets:asset-detail" pk=DEFAULT_PK %}">' + cellData + '</a>';
+                        $(td).html(detail_btn.replace('{{ DEFAULT_PK }}', rowData.id));
+                     }}
+                ],
+                ajax_url: '{% url "api-perms:user-assets" pk=user.id %}',
+                columns: [{data: "hostname" }, {data: "ip" },
+                          {data: "system_users_join"}
+                ]
+            };
+            var options2 = {
+                ele: $('#user_asset_groups_table'),
+                buttons: [],
+                order: [],
+                select: [],
+                columnDefs: [
+                    {targets: 0, createdCell: function (td, cellData, rowData) {
+                        var detail_btn = '<a href="{% url "assets:asset-group-detail" pk=DEFAULT_PK %}">' + cellData + '</a>';
+                        $(td).html(detail_btn.replace('{{ DEFAULT_PK }}', rowData.id));
+                     }}
+                ],
+                ajax_url: '{% url "api-perms:user-asset-groups" pk=user.id %}',
+                columns: [{data: "name" }, {data: "assets_amount" }],
+                paging: false
+            };
+            jumpserver.initDataTable(options);
+            jumpserver.initDataTable(options2);
+        });
+    </script>
+{% endblock %}
