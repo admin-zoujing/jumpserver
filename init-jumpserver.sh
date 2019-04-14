@@ -18,11 +18,8 @@ rm -rf /var/run/yum.pid
 rm -rf /var/run/yum.pid
 #一、-----------------------------------安装jumpserver--------------------------------------------------
 #1）解决依赖关系
-#yum -y install epel-release  
-#yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel gcc gcc-c++ git python-pip  automake autoconf python-devel sshpass readline-devel libffi-devel  
-
-cd /usr/local/src/jumpserver/rpm
-rpm -ivh /usr/local/src/jumpserver/rpm/*.rpm --force --nodeps
+yum -y install epel-release  
+yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel gcc gcc-c++ git python-pip  automake autoconf python-devel sshpass readline-devel libffi-devel  
 
 #yum -y install redis
 sed -i 's|appendonly no|appendonly yes|' /etc/redis.conf 
