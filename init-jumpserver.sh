@@ -31,7 +31,7 @@ systemctl enable redis
 systemctl start mariadb 
 systemctl enable mariadb
 mysql -uroot -e "create database jumpserver default charset 'utf8';"  
-mysql -uroot -e "grant all on jumpserver.* to 'jumpserver'@'127.0.0.1' identified by 'Jumpserver6688';"  
+mysql -uroot -e "grant all on jumpserver.* to 'jumpserver'@'127.0.0.1' identified by 'Jumpserver';"  
 mysql -uroot -e "flush privileges;" 
 
 #2)编译安装python3.6
@@ -79,7 +79,7 @@ sed -i "s|# DB_ENGINE = 'mysql'|DB_ENGINE = 'mysql'|" /usr/local/jumpserver/conf
 sed -i "s|# DB_HOST = '127.0.0.1'|DB_HOST = '127.0.0.1'|" /usr/local/jumpserver/config.py
 sed -i "s|# DB_PORT = 3306|DB_PORT = 3306|" /usr/local/jumpserver/config.py
 sed -i "s|# DB_USER = 'root'|DB_USER = 'jumpserver'|" /usr/local/jumpserver/config.py
-sed -i "s|# DB_PASSWORD = ''|DB_PASSWORD = 'Jumpserver6688'|" /usr/local/jumpserver/config.py
+sed -i "s|# DB_PASSWORD = ''|DB_PASSWORD = 'Jumpserver'|" /usr/local/jumpserver/config.py
 sed -i "s|# DB_NAME = 'jumpserver'|DB_NAME = 'jumpserver'|" /usr/local/jumpserver/config.py
 
 sed -i 's|logfile "/opt/jumpserver/logs/redis.log"|logfile "/var/log/redis/redis.log"|' /usr/local/jumpserver/utils/redis.conf
