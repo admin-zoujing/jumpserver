@@ -91,7 +91,7 @@ sh make_migrations.sh
 cd /usr/local/jumpserver
 nohup python -u run_server.py all  > nohup.out 2>&1 & 
 
-#打开浏览器访问: http://IP:8080 看到下面页面 ，使用用户名admin和密码admin
+#打开浏览器访问: http://IP:8080 看到下面页面 ，使用用户名admin
 #ssh-keygen生成公钥cat /root/.ssh/id_rsa.pub 复制到ssh公钥。
 
 #4)安装 SSH Server: Coco
@@ -110,7 +110,7 @@ cp conf_example.py conf.py
 cat conf.py 
 nohup python -u run_server.py all  > nohup.out 2>&1 & 
 #这时需要去 jumpserver管理后台-应用程序-终端接受coco的注册
-#测试连接 密码: admin 如果能登陆代表部署成功
+#测试连接 密码: 如果能登陆代表部署成功
 #ssh -p2222 admin@192.168.244.144
 #ssh admin@192.168.244.144 2222
 
