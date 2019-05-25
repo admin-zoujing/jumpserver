@@ -34,7 +34,6 @@ mysql -uroot -e "create database jumpserver default charset 'utf8';"
 mysql -uroot -e "grant all on jumpserver.* to 'jumpserver'@'127.0.0.1' identified by 'Jumpserver6688';"  
 mysql -uroot -e "flush privileges;" 
 
-
 #2)编译安装python3.6
 #groupadd jumpserver
 #useradd -g jumpserver -s /sbin/nologin jumpserver
