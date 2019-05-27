@@ -1,7 +1,0 @@
-.git
-logs/*
-data/*
-.github
-tmp/*
-django.db
-celerybeat.pid
